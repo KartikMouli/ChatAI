@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 
 const newPrompt = ({ data }) => {
 
+
   const [question, setQuestion] = useState("");
   const [answer, setAnswer] = useState("");
 
@@ -20,13 +21,19 @@ const newPrompt = ({ data }) => {
     dbData: {},
     aiData: {}
   })
+  
+
+  const history = data?.history.map(({ role, parts }) => ({
+    role,
+    parts: [{ text: parts[0].text }],
+  })) || [{ role: 'user', parts: [{ text: 'Hello!' }] }];
 
   const chat = model.startChat({
-    history: [data?.history.map(({ role, parts }) => ({ role, parts: [{ text: parts[0].text }] }))],
+    history,
     generationConfig: {
-      // maxOutputTokens:100,
-    }
-  })
+      // maxOutputTokens: 100,
+    },
+  });
 
   const endRef = useRef(null)
   const formRef = useRef(null)

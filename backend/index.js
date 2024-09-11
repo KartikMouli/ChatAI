@@ -107,7 +107,7 @@ app.get("/api/userchats", ClerkExpressRequireAuth(), async (req, res) => {
 
     try {
         const userChats = await UserChats.find({ userId });
-
+        // console.log(userChats)
         res.status(200).send(userChats[0].chats)
     } catch (error) {
         console.log(error)
@@ -170,10 +170,10 @@ app.use((err, req, res, next) => {
 })
 
 
-app.use(express.static(path.join(__dirname, "../client")))
-app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../client","index.html"))
-})
+// app.use(express.static(path.join(__dirname,"../client")))
+// app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname,"../client"))
+// })
 
 app.listen(port, () => {
     connect()
