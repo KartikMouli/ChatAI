@@ -25,6 +25,11 @@ app.use(cors({
 
 app.use(express.json())
 
+
+app.get("/",(req,res)=>{
+    res.send("listening !")
+})
+
 const connect = async () => {
     try {
         await mongoose.connect(process.env.MONGO)
